@@ -3,9 +3,10 @@
 
 import React from 'react';
 import UserComponent from './userComponent';
+import 'whatwg-fetch';
 
 
-class UsersListComponent extend React.Component {
+class UsersListComponent extends React.Component {
   constructor(props) {
     super(props);
 

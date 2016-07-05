@@ -3,12 +3,13 @@ import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
 import UserComponent from '../src/userComponent';
+import UsersListComponent from '../src/usersListComponent';
 
 
 let wrapper;
 
 
-describe('Test suite for UserComponent', function() {
+describe('Test suite for UserComponent', () => {
   beforeEach(() => {
     wrapper = shallow(<UserComponent
                             name={ 'Reign' }
@@ -32,5 +33,17 @@ describe('Test suite for UserComponent', function() {
     expect(agePar.type()).to.equal('p');
     expect(agePar.hasClass('user__age')).to.equal(true);
     expect(agePar.text()).to.equal('Age: 26');
+  });
+});
+
+
+describe('Test suite for UsersListComponent', () => {
+  beforeEach(() => {
+    wrapper = mount(<UsersListComponent />);
+  });
+
+  it('Contains the top level root element rendered with the right class', () => {
+    expect(wrapper.type()).to.equal('div');
+    expect(wrapper.hasClass('users-list')).to.equal(true);
   });
 });
