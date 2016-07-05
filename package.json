@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A repo for the `TDD in React using Enzyme` workshop",
   "scripts": {
-    "test": "mocha tests/setup.js tests/tests.js"
+    "test": "mocha tests/setup.js tests/tests.js",
+    "test:full": "mocha tests/setup.js tests/tests.full.js"
   },
   "repository": {
     "type": "git",
