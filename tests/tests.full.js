@@ -42,11 +42,13 @@ describe('Test suite for UsersListComponent', () => {
     wrapper = mount(<UsersListComponent />);
   });
 
-  it('Renders null based on initial state', () => {
+  it('Renders null based on the initial state (empty `usersList` array)', () => {
+    expect(wrapper.state().usersList).to.be.instanceof(Array);
+    expect(wrapper.state().usersList.length).to.equal(0);
     expect(wrapper.html()).to.equal(null);
   });
 
-  it('Calls `componentDidMount` hook', () => {
+  it('Calls `componentDidMount` lifecycle method', () => {
     sinon.spy(UsersListComponent.prototype, 'componentDidMount');
     // Overwrite, so we can correctly reason about the count number
     // Don't want shared state
