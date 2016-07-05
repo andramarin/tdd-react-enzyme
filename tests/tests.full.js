@@ -11,8 +11,8 @@ let wrapper;
 describe('Test suite for UserComponent', function() {
   beforeEach(() => {
     wrapper = shallow(<UserComponent
-                          name={ 'Reign' }
-                          age={ 26 } />);
+                            name={ 'Reign' }
+                            age={ 26 } />);
   });
 
   it('Contains the top level root element rendered with the right class', () => {
