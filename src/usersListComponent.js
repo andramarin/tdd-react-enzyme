@@ -3,7 +3,8 @@
 
 import React from 'react';
 import UserComponent from './userComponent';
-import 'whatwg-fetch';
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 
 class UsersListComponent extends React.Component {

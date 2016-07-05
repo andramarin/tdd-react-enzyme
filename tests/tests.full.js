@@ -42,8 +42,15 @@ describe('Test suite for UsersListComponent', () => {
     wrapper = mount(<UsersListComponent />);
   });
 
-  it('Contains the top level root element rendered with the right class', () => {
-    expect(wrapper.type()).to.equal('div');
-    expect(wrapper.hasClass('users-list')).to.equal(true);
+  it('Renders null based on initial state', () => {
+    expect(wrapper.html()).to.equal(null);
+  });
+
+  it('Calls `componentDidMount` hook', () => {
+    sinon.spy(UsersListComponent.prototype, 'componentDidMount');
+    // Overwrite, so we can correctly reason about the count number
+    // Don't want shared state
+    wrapper = mount(<UsersListComponent />);
+    expect(UsersListComponent.prototype.componentDidMount.calledOnce).to.equal(true);
   });
 });
