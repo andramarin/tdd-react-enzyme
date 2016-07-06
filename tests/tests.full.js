@@ -56,6 +56,25 @@ describe('Test suite for UsersListComponent', () => {
     expect(UsersListComponent.prototype.componentDidMount.calledOnce).to.equal(true);
   });
 
+  it('Correctly updates the state after AJAX call in `componentDidMount` was made', () => {
+    const server = sinon.fakeServer.create();
+    server.respondWith('GET', 'https://api.github.com/users', [
+      200,
+      {
+        'Content-Type': 'application/json',
+        'Content-Length': 2
+      },
+      '[{ "name": "Reign", "age": 26 }]'
+    ]);
+    // Overwrite, so we can correctly reason about the count number
+    // Don't want shared state
+    wrapper = mount(<UsersListComponent />);
+    server.respond();
+    server.restore();
+    expect(wrapper.update().state().usersList).to.be.instanceof(Array);
+    console.log(wrapper.update().state().usersList.length);
+  });
+
   it('Renders the root `div` with the right class and calls `_constructUsersList` to create the users list', () => {
     sinon.spy(UsersListComponent.prototype, '_constructUsersList');
     wrapper.setState({

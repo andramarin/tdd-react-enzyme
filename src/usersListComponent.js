@@ -3,8 +3,9 @@
 
 import React from 'react';
 import UserComponent from './userComponent';
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+// require('es6-promise').polyfill();
+// require('isomorphic-fetch');
+const request = require('request');
 
 
 class UsersListComponent extends React.Component {
@@ -17,6 +18,17 @@ class UsersListComponent extends React.Component {
   }
 
   componentDidMount() {
+    request('https://api.github.com/users', (err, res) => {
+      if (!err && res.statusCode === 200) {
+        this.setState({
+          usersList: res.slice(0)
+        });
+      }
+      else {
+        console.log(err);
+      }
+    });
+    /*
     fetch('https://api.github.com/users')
       .then(res => res.json())
       .then(res => {
@@ -25,6 +37,7 @@ class UsersListComponent extends React.Component {
         });
       })
       .catch(err => console.log(err));
+    */
   }
 
   render() {
