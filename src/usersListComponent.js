@@ -40,9 +40,10 @@ class UsersListComponent extends React.Component {
   }
 
   _constructUsersList() {
-    return this.state.usersList.map((user) => {
+    return this.state.usersList.map((user, index) => {
       return (
         <UserComponent
+              key={ index }
               name={ user.name }
               age={ user.age } />
       );

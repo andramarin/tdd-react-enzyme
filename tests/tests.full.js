@@ -55,4 +55,42 @@ describe('Test suite for UsersListComponent', () => {
     wrapper = mount(<UsersListComponent />);
     expect(UsersListComponent.prototype.componentDidMount.calledOnce).to.equal(true);
   });
+
+  it('Renders the root `div` with the right class and calls `_constructUsersList` to create the users list', () => {
+    sinon.spy(UsersListComponent.prototype, '_constructUsersList');
+    wrapper.setState({
+      usersList: [
+        {
+          name: 'Reign',
+          age: 26
+        }
+      ]
+    });
+    expect(wrapper.find('.users-list')).to.have.length(1);
+    expect(UsersListComponent.prototype._constructUsersList.calledOnce).to.equal(true);
+  });
+
+  it('The `_constructUsersList` behaves correctly', () => {
+    wrapper.setState({
+      usersList: [
+        {
+          name: 'Reign',
+          age: 26
+        },
+        {
+          name: 'Vlad',
+          age: 30
+        }
+      ]
+    });
+    const res = wrapper.instance()._constructUsersList();
+    expect(res).to.be.instanceof(Array);
+    expect(res.length).to.equal(2);
+    expect(mount(res[0]).type()).to.equal(UserComponent);
+    expect(res[0].props.name).to.equal('Reign');
+    expect(res[0].props.age).to.equal(26);
+    expect(mount(res[1]).type()).to.equal(UserComponent);
+    expect(res[1].props.name).to.equal('Vlad');
+    expect(res[1].props.age).to.equal(30);
+  });
 });
