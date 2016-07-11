@@ -26,6 +26,7 @@
     "enzyme": "^2.3.0",
     "jsdom": "^9.3.0",
     "mocha": "^2.5.3",
+    "nock": "^8.0.0",
     "react-addons-test-utils": "^15.0.2",
     "sinon": "^1.17.4"
   },
@@ -34,7 +35,7 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
-    "request": "^2.72.0"
+    "superagent": "^2.0.0"
   },
   "license": "MIT",
   "maintainers": [

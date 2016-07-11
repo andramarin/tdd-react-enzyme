@@ -2,6 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
+import nock from 'nock';
 import UserComponent from '../src/userComponent';
 import UsersListComponent from '../src/usersListComponent';
 
@@ -56,23 +57,23 @@ describe('Test suite for UsersListComponent', () => {
     expect(UsersListComponent.prototype.componentDidMount.calledOnce).to.equal(true);
   });
 
-  it('Correctly updates the state after AJAX call in `componentDidMount` was made', () => {
-    const server = sinon.fakeServer.create();
-    server.respondWith('GET', 'https://api.github.com/users', [
-      200,
-      {
-        'Content-Type': 'application/json',
-        'Content-Length': 2
-      },
-      '[{ "name": "Reign", "age": 26 }]'
-    ]);
+  it('Correctly updates the state after AJAX call in `componentDidMount` was made', (done) => {
+    nock('https://api.github.com')
+      .get('/users')
+      .reply(200, [
+        { 'name': 'Reign', 'age': 26 }
+      ]);
     // Overwrite, so we can correctly reason about the count number
     // Don't want shared state
     wrapper = mount(<UsersListComponent />);
-    server.respond();
-    server.restore();
-    expect(wrapper.update().state().usersList).to.be.instanceof(Array);
-    console.log(wrapper.update().state().usersList.length);
+    setTimeout(function() {
+      expect(wrapper.state().usersList).to.be.instanceof(Array);
+      expect(wrapper.state().usersList.length).to.equal(1);
+      expect(wrapper.state().usersList[0].name).to.equal('Reign');
+      expect(wrapper.state().usersList[0].age).to.equal(26);
+      nock.cleanAll();
+      done();
+    }, 1500);
   });
 
   it('Renders the root `div` with the right class and calls `_constructUsersList` to create the users list', () => {
