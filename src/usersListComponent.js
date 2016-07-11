@@ -3,8 +3,6 @@
 
 import React from 'react';
 import UserComponent from './userComponent';
-// require('es6-promise').polyfill();
-// require('isomorphic-fetch');
 const request = require('request');
 
 
@@ -28,16 +26,6 @@ class UsersListComponent extends React.Component {
         console.log(err);
       }
     });
-    /*
-    fetch('https://api.github.com/users')
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          usersList: res.slice(0)
-        });
-      })
-      .catch(err => console.log(err));
-    */
   }
 
   render() {
