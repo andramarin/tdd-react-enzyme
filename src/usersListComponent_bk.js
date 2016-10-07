@@ -7,13 +7,6 @@ import request from 'superagent';
 
 
 class UsersListComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return null;
-  }
 };
 
 
